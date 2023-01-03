@@ -1,2 +1,4 @@
-# web-330
- Enterprise Javascript II
+# WEB 330 Enterprise JavaScript II
+## Contributors
+* Richard Krasso
+* Alex Thomas
