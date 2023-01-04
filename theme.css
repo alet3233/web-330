@@ -1,0 +1,196 @@
+/***************************************************************************************
+*    Title: Week 1-Enterprise JavaScript II
+*    Author: Alex Thomas
+*    Date: 1/4/2023
+*    File: theme.css
+*    Description: Enterprise JavaScript set up for the class
+*    Source Code Attribution: Week 1 and week 0 instructions
+***************************************************************************************/
+
+/* if the body has light-theme class, assigning variables different properties */
+body.light-theme {
+    --text-color: #000;
+    --background-color: #fff;
+    --anchor-color: #4F3674;
+    --h1-background-color: #3c275a;
+    --h1-border-color: #D6A800;
+    --heading-background-color: #3c275a;
+    --heading-color: #fff;
+    --heading-border-color: #D6A800;
+    --anchor-hover-color: #4F3674;
+    --anchor-hover-background-color: #D6a800;
+    --card-background-color: #fff;
+    --card-title-color: #4F3674;
+    --btn-background-color: #4F3674;
+    --btn-color: #fff;
+    --btn-hover-background-color: #d6a800;
+    --btn-hover-color: #4f3674;
+    --input-border-color: #ccc;
+
+}
+
+/* if the body has dark-theme class, assigning variables different properties */
+
+body.dark-theme {
+    --text-color: #fafafa;
+    --background-color: #303030;
+    --anchor-color: #fff;
+    --h1-background-color: #9c27b0;
+    --h1-border-color: #9c27b0;
+    --heading-background-color: #424242;
+    --heading-color: #fff;
+    --heading-border-color: #424242;
+    --anchor-hover-color: #d176e1;
+    --anchor-hover-background-color: #303030;
+   --card-background-color: #424242;
+   --card-title-color: #d176e1;
+   --btn-background-color: #d176e1;
+   --btn-color: #fff;
+   --btn-hover-background-color: #7d4787;
+   --btn-hover-color: #fff;
+   --input-border-color: #303030; 
+
+}
+
+/* referring to variables declared above */
+body {
+    font-family: "Oswald", Verdana, Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+i {
+    margin-right: 109px;
+    margin-top: -35px;
+}
+
+a {
+    color: var(--anchor-color);
+    text-decoration: none;
+}
+a:hover {
+    background-color: var(--anchor-hover-background-color);
+    color: var(--anchor-hover-color);
+}
+h1 {
+    color: var(--heading-color);
+    background-color: var(--h1-background-color);
+    padding: 10px;
+    border: 1px solid var(--h1-border-color);
+}
+
+h2, h3, h4 {
+    color: var(--heading-color);
+    background-color: var(--heading-background-color);
+    padding: 10px;
+    border: 1px solid var(--heading-border-color);
+}
+
+a:visited {
+    color: var(--anchor-color);
+}
+
+.drop-down-menu{
+    padding: 12px;
+    border: 1px solid var(--input-border-color);
+    outline: none;
+    border-radius: 3px;
+}
+
+.app-header {
+    text-align: center;
+    font-size: 28px;
+    background-color: transparent;
+    color: #000;
+    border: none;
+}
+
+/* common card styling */
+.card {
+    margin-bottom: 30px;
+    padding: 10px 20px;
+    box-shadow: 0px 1px 3px 0px;
+    width: 550px;
+    /* making them into the center */
+    margin-left: auto;
+    margin-right: auto;
+    background-color: var(--card-background-color);
+}
+
+/* common card title */
+.card-title {
+    text-align: center;
+    font-size: 28px;
+    color: var(--card-title-color);
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.form-field {
+    margin-bottom: 20px;
+}
+
+/* display button */
+.form-field button {
+    background-color: #3c275a;
+    color: #fff;
+    padding: 12px;
+    width: 100%;
+}
+
+.form-field button:hover {
+    background-color: #d6a800;
+    color: #3c275a;
+}
+
+/* table */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 30px;
+}
+/* beautifying the th */
+th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 12px;
+    text-align: left;
+    background-color: #4f3674;
+    color: white;
+}
+
+td {
+    padding-left: 12px;
+}
+/* adding border for both table header and table detail */
+td,
+th {
+    border: 1px solid #ddd;
+}
+/* adding hover rule for the rows */
+tr:hover {
+    background-color: #d6a800;
+    color: #4F3674;
+    cursor: pointer;
+}
+
+.card-content {
+    font-size: 28px;
+    text-align: center;
+}
+
+.btn-primaary {
+    background-color: var(--btn-background-color);
+    color: var(--btn-color);
+    padding: 12px;
+    width: 300px;
+}
+
+.btn-primaary:hover {
+    background-color: var(--btn-hover-background-color);
+    color: var(--btn-hover-color);
+}
+
+input {
+    border: 1px solid var(--input-border-color);
+}
