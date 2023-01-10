@@ -101,7 +101,8 @@
             let txtPhrase = document.getElementById("txtPhrase").value.toLowerCase();
             // targetting required elements
             let assignResultsHeader = document.getElementById("assign-results-header");
-            let assignResults = document.getElementById("assign-results")
+            let assignResults = document.getElementById("assign-results");
+            assignResults.innerHTML = "";
             // getting current date by calling getTodaysDate function
             let today = getTodaysDate();
             // getting length of input by calling getLength function
