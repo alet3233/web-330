@@ -1,0 +1,131 @@
+<!-- ***************************************************************************************
+*   Title: Week 2 Palindrome
+*   Author: Alex Thomas
+*   Date: 1/10/2023
+*   Source Code Attribution: Split Method
+*   URL: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split
+*   Source Code Attribution: reverse method
+*   URL: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reverse
+*   Source Code Attribution: join method
+*   URL: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join
+*   Source Code Attribution: toLowerCase
+*   URL: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toLowerCase
+*   Source Code Attribution: toLocaleString
+*   URL: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString
+*   Source Code Attribution: Week 2 instructions
+
+*************************************************************************************** -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+        integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../theme.css">
+    <link rel="stylesheet" href="../site.css">
+    <script src="theme.js" defer></script>
+    <title>WEB 330-Enterprise JavaScript II</title>
+    <!-- adding style for is and is not element -->
+    <style>
+        .is {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body class="light-theme">
+    <div id="container">
+        <h1 class="app-header">Welcome to the Palindrome App!</h1>
+        <!-- Palindrome checker card -->
+        <div class="card">
+            <div class="card-title">Palindrome Checker</div>
+
+                <div class="form-field">
+                    <label for="txtPhrase">Phrase value</label>
+                    <input type="text" id="txtPhrase">   
+            </div>
+            <div class="form-field">
+                <button type="submit" id="btnCheckPhrase">Check Phrase</button>
+            </div>
+        </div>
+        <a href="../index.html" class="return-home">Return</a>
+
+        <!-- Palindrome results in card -->
+        <div class="card">
+            <div class="card-title">Palindrome Results</div>
+            <div id="assign-results-header"></div>
+        <div class="assign-results-text" id="assign-results"></div>
+        </div>
+
+    </div>   
+
+    <script>
+        // function for getting current date in en-US format
+        function getTodaysDate() {
+            return new Date().toLocaleString("en-US").split(",")[0];
+        }
+
+        // function for getting length of any string
+        function getLength(string) {
+            return string.length;
+        }
+
+        // function for reversing any string
+        function reverse(parameter) {
+          return  parameter.split("").reverse().join("")
+        }
+
+        // returning true if it's palindrome otherwise false
+        function isPalindrome(string) {
+            if (string === reverse(string)) {
+                return true 
+            } else {
+                return false
+            }
+        }
+
+        // adding event listener to button
+        document.getElementById("btnCheckPhrase").onclick = function() {
+            // getting input value from the user
+            let txtPhrase = document.getElementById("txtPhrase").value.toLowerCase();
+            // targetting required elements
+            let assignResultsHeader = document.getElementById("assign-results-header");
+            let assignResults = document.getElementById("assign-results")
+            // getting current date by calling getTodaysDate function
+            let today = getTodaysDate();
+            // getting length of input by calling getLength function
+            let len = getLength(txtPhrase);
+            // reversing the input
+            let reversedPhrase = reverse(txtPhrase);
+            // formatting the content according to instructions
+            let header = `  Date: ${today} <br>
+                            Original Phrase: ${txtPhrase} <br>
+                            Reversed Phrase: ${reversedPhrase} <br>
+                            Phrase Length: ${len}
+            `;
+            // showing it to assignResultsHeader div
+            assignResultsHeader.innerHTML = header;
+            // calling isPalindrome to check if it's palindrome and showing content based on that.
+            let isPalindromeTxt = isPalindrome(txtPhrase);
+            if(isPalindromeTxt) {
+                assignResults.innerHTML += `${txtPhrase} <span class="is">is</span> a palindrome`
+            } else {
+                assignResults.innerHTML += `${txtPhrase} <span class="is">is not</span> a palindrome`
+            }
+        }
+    </script>
+
+</body>
+
+</html>
