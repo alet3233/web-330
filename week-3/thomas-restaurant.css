@@ -1,0 +1,33 @@
+/********************************
+*   Title: Week 3 Restaurant App
+*   Author: Alex Thomas
+*   Date: 1/17/2023
+*   Source Code Attribution: Week 3 instructions
+
+***************************************************************************************/
+
+/* making the menu items 2/2 */
+.cards-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card.card-box {
+    width: calc(100%/2 - 60px);
+}
+
+
+/* removing the previous values of card-content and form-field */
+.card-content {
+    font-size: initial;
+    text-align: left;
+}
+
+.form-field {
+    padding: 0;
+    margin: 0;
+}
+
+.form-field-desserts {
+    margin-bottom: 20px;
+}
