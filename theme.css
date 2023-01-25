@@ -26,7 +26,11 @@ body.light-theme {
     --btn-hover-background-color: #d6a800;
     --btn-hover-color: #4f3674;
     --input-border-color: #ccc;
-
+    --table-header-background-color: #4f3674;
+    --table-header-color: #fff;
+    --table-border-color: #ddd;
+    --table-hover-background-color: #D6A800;
+    --table-hover-color: #4F3674;
 }
 
 /* if the body has dark-theme class, assigning variables different properties */
@@ -49,7 +53,11 @@ body.dark-theme {
    --btn-hover-background-color: #7d4787;
    --btn-hover-color: #fff;
    --input-border-color: #303030; 
-
+    --table-header-background-color: #D176E1;
+    --table-header-color: #fff;
+    --table-border-color: #303030;
+    --table-hover-background-color: #7D4787;
+    --table-hover-color: #fff;
 }
 
 /* referring to variables declared above */
@@ -146,7 +154,6 @@ a:visited {
 /* table */
 table {
     border-collapse: collapse;
-    width: 100%;
     margin-bottom: 30px;
 }
 /* beautifying the th */
@@ -154,9 +161,10 @@ th {
     padding-top: 12px;
     padding-bottom: 12px;
     padding-left: 12px;
+    padding-right: 12px;
     text-align: left;
-    background-color: #4f3674;
-    color: white;
+    background-color: var(--table-header-background-color);
+    color: var(--table-header-color);
 }
 
 td {
@@ -165,17 +173,16 @@ td {
 /* adding border for both table header and table detail */
 td,
 th {
-    border: 1px solid #ddd;
+    border: 1px solid var(--table-border-color);
 }
 /* adding hover rule for the rows */
 tr:hover {
-    background-color: #d6a800;
-    color: #4F3674;
+    background-color: var(--table-hover-background-color);
+    color: var(--table-hover-color);
     cursor: pointer;
 }
 
 .card-content {
-    font-size: 28px;
     text-align: center;
 }
 

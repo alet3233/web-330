@@ -1,0 +1,124 @@
+<!-- ***************************************************************************************
+*   Title: Week 4 Calorie App
+*   Author: Alex Thomas
+*   Date: 1/24/2023
+*   Source Code Attribution: for...of loop
+*   URL: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of
+*   Source Code Attribution: static keyword
+*   URL: https://www.geeksforgeeks.org/how-to-create-static-variables-in-javascript/
+*   Source Code Attribution: Checking for Enter key
+*   URL: https://www.techiedelight.com/detect-enter-key-press-javascript
+*   Source Code Attribution: Week 4 instructions
+*************************************************************************************** -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+        integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../theme.css">
+    <link rel="stylesheet" href="../site.css">
+    <link rel="stylesheet" href="./Thomas-calorie.css">
+    <script src="../theme.js" defer></script>
+    <title>WEB 330-Enterprise JavaScript II</title>
+</head>
+
+<body class="light-theme">
+    <div id="container">
+        <h1 class="app-header">Welcome to the Calorie App!</h1>
+        <!-- Palindrome checker card -->
+        <div class="card">
+            <div class="card-title">Calorie Search Form</div>
+
+            <div class="form-field">
+                <label for="txtFoodItem">Enter a food item</label>
+                <input type="text" id="txtFoodItem">
+                <span id="foodList"></span>
+            </div>
+            <div class="form-field">
+                <button type="submit" id="btnSearch">Search</button>
+            </div>
+        </div>
+        <a href="../index.html" class="return-home">Return</a>
+
+        <!-- Palindrome results in card -->
+        <div class="card">
+            <div class="card-title">Search Results</div>
+
+            <div class="card-content">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Calories</th>
+                        </tr>
+                    </thead>
+                    <tbody id="searchResults">
+                    </tbody>
+
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- adding type module to import/export files -->
+    <script type="module">
+        import { CalorieConverter } from "./calorie-converter.js";
+        let txtFoodItemEl = document.getElementById("txtFoodItem");
+        let btnSearch = document.getElementById("btnSearch");
+        let searchResults = document.getElementById("searchResults");
+        let foodListEl = document.getElementById("foodList");
+
+        btnSearch.addEventListener("click", (e) => {
+            let txtFoodItem = txtFoodItemEl.value;
+            let foods = CalorieConverter.find(txtFoodItem);
+            let tableData = "";
+
+            for (let food of foods) {
+                let row = `
+                    <tr>
+                        <td>${food.name}</td>
+                        <td>${food.calories}</td>
+                    </tr>
+                `;
+                tableData += row;
+            }
+
+            tableData += `</table>`
+
+            searchResults.innerHTML = tableData;
+
+        })
+
+        document.addEventListener("keyup", (e) => {
+            if (e.key == "Enter") {
+                btnSearch.click();
+            }
+        })
+
+        let foodList = CalorieConverter.data;
+        console.log(foodList)
+        let foodListData = "<i>(Ex: ";
+
+        for (let iterator of foodList) {
+            foodListData += iterator.name + ", ";
+        }
+
+        foodListData = foodListData.slice(0, -2) + ")</i>";
+        foodListEl.innerHTML = foodListData;
+    </script>
+
+</body>
+
+</html>

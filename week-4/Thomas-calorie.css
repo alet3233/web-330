@@ -1,0 +1,19 @@
+/***************************************************************************************
+*    Title: Week 4-Enterprise JavaScript II
+*    Author: Alex Thomas
+*    Date: 1/24/2023
+*    File: Thomas-calorie.css
+*    Description: Enterprise JavaScript set up for the class
+*    Source Code Attribution: Week 4 instructions
+***************************************************************************************/
+
+#txtFoodItem {
+    margin-bottom: 10px;
+}
+
+#foodList{
+    float:left;
+    color: #df546a;
+    font-size: 12px;
+    letter-spacing: 2px;
+}
