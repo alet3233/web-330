@@ -1,0 +1,142 @@
+<!-- ***************************************************************************************
+*   Title: Week 5 Repair Shop App
+*   Author: Alex Thomas
+*   Date: 1/31/2023
+*   Source Code Attribution: Yield
+*   URL: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield
+*   Source Code Attribution: Iterators
+*   URL: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators
+*   Source Code Attribution: Week 5 instructions
+*************************************************************************************** -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+        integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../theme.css">
+    <link rel="stylesheet" href="../site.css">
+    <link rel="stylesheet" href="./Thomas-bobs-auto-repair.css">
+    <script src="../theme.js" defer></script>
+    <title>WEB 330-Enterprise JavaScript II</title>
+</head>
+
+<body class="light-theme">
+    <div id="container">
+        <h1 class="app-header">Welcome to Bob's Automotive Repair Shop!</h1>
+        <!-- Product Listing card -->
+        <div class="card">
+            <div class="card-title">Product Listing</div>
+            <cart-component></cart-component>
+            <div class="form-field">
+                <label for="productList">Choose a product</label>
+                <select name="productList" id="productList">
+                    <option value="Select">--Select--</option>
+                    <option value="19.99">Oil Change</option>
+                    <option value="18.44">Filter Replacement</option>
+                    <option value="9.99">Wiper Fluid Refill</option>
+                </select>
+                <i id="cart-message">To view your shopping cart click icon</i>
+            </div>
+            <div class="form-field">
+                <button type="submit" id="btnAddProduct">Add to Cart</button>
+            </div>
+        </div>
+        <a href="../index.html" class="return-home">Return</a>
+
+        <!-- Palindrome results in card -->
+        <div class="card">
+            <div class="card-title">Shopping Cart</div>
+            <div class="card-content" id="shoppingCart"></div>
+        </div>
+
+    </div>
+
+    <!-- adding type module to import/export files -->
+    <script type="module">
+        // importing the required files using modules
+        import { CartComponent } from "./cart-component.js";
+        import { Product } from "./product.js";
+        import { ShoppingCart } from "./shopping-cart.js";
+
+        // targeting buttons
+        let btnAddProduct = document.getElementById("btnAddProduct");
+        let cartIcon = document.getElementById("cartIcon");
+        
+        // making an instance of shoppingCart
+        let shoppingCart = new ShoppingCart();
+
+        // making a setCartCount which will display the total number of cart items in cart-count html element
+        function setCartCount() {
+            document.getElementById("cart-count").innerHTML = shoppingCart.count();
+        }
+
+        // calling the setCartCount initially
+        setCartCount();
+
+        // adding an event listener for add button
+        btnAddProduct.addEventListener("click", function () {
+            // targeting productList html element
+            let productList = document.getElementById("productList");
+            // getting the current selected item text
+            let product = productList.options[productList.selectedIndex].text
+            // getting the current selected item value
+            let productValue = productList.options[productList.selectedIndex].value;
+            // checking if product is not equal ot --Select--
+            if (product !== "--Select--") {
+                // adding new product to shoppingCart
+                shoppingCart.add(new Product(product, productValue));
+                // calling the setCartCount
+                setCartCount();
+                // alerting it with the message
+                alert(`${product} was added to your shopping cart!`);
+                // restting the value at end
+                productList.value = "Select";
+            }
+
+        })
+
+        // adding an event listener for cart icon
+        cartIcon.addEventListener("click", function () {
+            // making table html
+            let cartDisplayTable = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody id="shoppingCart">
+            `;
+            // looping through all the shoppingCart items and displaying them in a table
+            for (let item of shoppingCart) {
+                cartDisplayTable += `
+                    <tr>
+                        <td>${item.id}</td>    
+                        <td>${item.name}</td>    
+                        <td>${item.price}</td>    
+                    </tr>
+                `
+            }
+            cartDisplayTable += `</tbody></table>`;
+            // showing tjat to shoppingCart element
+            document.getElementById("shoppingCart").innerHTML = cartDisplayTable;
+        })
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+/***************************************************************************************
+*    Title: Week 5-Enterprise JavaScript II
+*    Author: Alex Thomas
+*    Date: 1/31/2023
+*    File: Thomas-bobs-auto-repair.css
+*    Description: Enterprise JavaScript set up for the class
+*    Source Code Attribution: Week 5 instructions
+***************************************************************************************/
+
+cart-component {
+    display: block;
+    text-align: center;
+    font-size: 20px;
+}
+
+#cart-message{
+    color: #df546a;
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+i, span {
+    margin-right: 0;
+    color: var(--card-title-color);
+}
+
+.form-field {
+    width: 240px;
+}
