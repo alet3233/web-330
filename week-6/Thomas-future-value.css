@@ -1,0 +1,21 @@
+/***************************************************************************************
+*    Title: Week 6-Enterprise JavaScript II
+*    Author: Alex Thomas
+*    Date: 02/07/2023
+*    File: Thomas-bobs-auto-repair.css
+*    Description: Enterprise JavaScript set up for the class
+*    Source Code Attribution: Week 6 instructions
+***************************************************************************************/
+
+/* making a danger class for error messages */
+.danger{
+    float: right;
+    color: #df546a;
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+.form-label{
+    display: inline-block;
+    padding: 1rem;
+}
