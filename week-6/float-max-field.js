@@ -15,7 +15,7 @@ export class FloatMaxField{
     }
     // validating if the required field is float as well as less than default value
     validate(){
-        return (parseFloat(this.field)) < this.field
+        return (parseFloat(this.field)) < this.max
     }
     // generating error message if he doesn't validate against required field is float as well as less than default value
     getMessage(){

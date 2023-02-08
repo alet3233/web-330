@@ -44,8 +44,9 @@ export class Validator {
         for (const validator of this.validators) {
             if(!validator.validate()){
                 this.messages.push(validator.getMessage());
+                return false;
             }
         }
-        return this.messages.length === 0;
+        return true
     }
 }
