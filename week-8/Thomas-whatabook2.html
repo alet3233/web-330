@@ -1,0 +1,182 @@
+<!-- ***************************************************************************************
+*   Title: Week 8 WhatABook, Part II
+*   Author: Alex Thomas
+*   Date: 2/26/2023
+*   Source Code Attribution: Fecth API
+*   URL: https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+*   Source Code Atrribution: Join method
+*   URL: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join
+*   Source Code Attribution: Week 8 instructions
+*************************************************************************************** -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+        integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../theme.css">
+    <link rel="stylesheet" href="../site.css">
+    <script src="../theme.js" defer></script>
+    <title>WEB 330-Enterprise JavaScript II</title>
+</head>
+
+<body class="light-theme">
+    <div id="container">
+        <h1 class="app-header">Welcome to the WhatABook, Part 1 App</h1>
+        <!-- Book List card -->
+        <div class="card">
+            <div class="card-title">Book Listing</div>
+<!-- table for the booklist data -->
+            <div class="card-content" id="bookListing">
+
+            </div>
+
+
+        </div>
+        <a href="../index.html" class="return-home">Return</a>
+
+        <!-- Selected book results in card -->
+        <div class="card">
+            <div class="card-title">Selected Book</div>
+            <div class="card-content" id="selectedBook"></div>
+        </div>
+
+    </div>
+
+    <!-- adding type module to import/export files -->
+    <script type="module">
+        import {HttpClient} from "./http-client.js";
+        const http = new HttpClient();
+        const isbns = [
+            '0345339681',
+            '0261103571',
+            '9780593099322',
+            '9780261102361',
+            '9780261102378',
+            '9780590302715',
+            '9780316769532',
+            '9780743273565',
+            '9780590405959'
+        ]
+        const params = {
+            "bibkeys": `ISBN:${isbns.join(",")}`,
+            "format": "json",
+            "jscmd": "details"
+        };
+
+        // getting the data from API and showing it on the screen
+        http.get("https://openlibrary.org/api/books", params).then(res => {
+            document.getElementById("bookListing").innerHTML = buildHtmlString(res, "table");
+
+            addIsbnClickEvents();
+        })
+        .catch(e => {
+            console.log(e);
+        })
+        function getBook(e)
+        {
+            e.preventDefault();
+
+            let self = this;
+            let isbn = self.innerText;
+            let newParams = {
+                "bibkeys": `ISBN:${isbn}`,
+                "format": "json",
+                "jscmd": "details"
+            };
+
+            http.get("https://openlibrary.org/api/books", newParams).then(res => {
+            console.log(res);
+
+            document.getElementById("selectedBook").innerHTML = buildHtmlString(res, "ul");
+
+            addIsbnClickEvents();
+        })
+        .catch(e => {
+            console.log(e);
+        })
+        }
+
+        // builidng HTML from retured resutls
+        function buildHtmlString(res, format) {
+            let tableString = `<table id="bookTable" class="table">
+                        <thead>
+                            <tr>
+                                <th>ISBN</th>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Pages</th>
+                                <th>Authors</th>
+                            </tr>
+                        </thead>
+                    <tbody>`;
+
+            let ulString = "";
+
+            for (let key in res) {
+                ulString += `<ul style="list-style-type: none;">`;
+
+                    if(res.hasOwnProperty(key)) {
+                        let authors = [];
+                        if(res[key].details.authors) {
+                            authors = res[key].details.authors.map(function(author) {
+                                return author.name;
+                            })
+                        }
+
+                        let book = {
+                            isbn: res[key].details.isbn_13 ? res[key].details.isbn_13 : res[key].details.isbn_10,
+                            title: res[key].details.title,
+                            description: res[key].details.subtitle ?  res[key].details.subtitle : "N/A",
+                            pages:  res[key].details.number_of_pages ?  res[key].details.subtitle : "N/A",
+                            authors: authors.join(",") 
+                        }
+                        ulString += `<li><b>ISBN:</b> ${book.isbn}</li>
+                        <li><b>Title:</b> ${book.title}</li>
+                        <li><b>Description:</b> ${book.description}</li>
+                        <li><b>Pages:</b> ${book.pages}</li>
+                        <li><b>Authors:</b> ${book.authors}</li>`;
+
+                        tableString += `
+                        <tr><td><a href="#" class="isbn-link">${book.isbn}</a></td>
+                        <td>${book.title}</td>
+                        <td>${book.description}</td>
+                        <td>${book.pages}</td>
+                        <td>${book.authors}</td>
+                        </tr>
+                        `
+                    }
+            }
+            ulString += "</ul>";
+            tableString += "</table>";
+
+            if(format === "table") {
+                return tableString
+            } else {
+                return ulString
+            }
+
+        }
+    
+        // adding click event to all the links
+        function addIsbnClickEvents() {
+                let viewButtons = document.querySelectorAll("#bookTable tbody .isbn-link");
+                for (let index = 0; index < viewButtons.length; index++) {
+                    const element = viewButtons[index];
+                    viewButtons[index].addEventListener("click", getBook);
+                }
+            }
+    </script>
+
+</body>
+</html>
